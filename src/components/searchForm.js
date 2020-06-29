@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function SearchForm() {
+export default function SearchForm(props) {
+
   return (
     <div className="searchArea">
       <div className="input-group"></div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import API from "../utils/api";
-import SeachForm from "./searchForm";
+import SearchForm from "./searchForm";
 import Table from "./table";
 
 export function Search() {
@@ -11,6 +11,18 @@ export function Search() {
     originalArray: [],
   });
 
+  const handleSearch = event => {
+    const filter = event.target.value;
+    const results = state.users.filter(result => {
+      let entry = result.name.first.toLowerCase() + " " + result.name.last.toLowerCase();
+      console.log(filter, entry)
+    if(entry.indexOf(filter.toLowerCase()) !== -1){
+      return result
+    };
+    });
+    setState({...state, results: results});
+  }
+  
   useEffect(()=>{
     API.getEmployee().then(employees => {
       console.log(employees)
@@ -24,16 +36,12 @@ export function Search() {
 
   },[])
 
-  function sortByName(){
-    let orderedEmployees = state.results.sort();
-    setEmployeeOrder([orderedEmployees)
-  }
 
   const [search, setSearch] = useState("");
   return (
     <>
     {console.log(state.results)}
-      <SeachForm />
+      <SearchForm />
       <Table results = {state.results}/>
     </>
   );
