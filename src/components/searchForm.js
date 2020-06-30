@@ -4,13 +4,16 @@ export default function SearchForm(props) {
 
   return (
     <div className="searchArea">
-      <div className="input-group"></div>
-      <input
-        type="text"
-        className="form-control"
-        id="searchInput"
-        placeholder="Search"
-      />
-    </div>
+        <div className="input-group"></div>
+        <input
+          name="search"
+          type="text"
+          className="form-control"
+          id="searchInput"
+          placeholder="Search"
+          onChange={props.handleInputChange}
+        />
+        {console.log(props.search)}
+      </div>
   );
 }

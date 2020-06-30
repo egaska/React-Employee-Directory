@@ -4,45 +4,46 @@ import SearchForm from "./searchForm";
 import Table from "./table";
 
 export function Search() {
-  //stores the search input
-
   const [state, setState] = useState({
     results: [],
     originalArray: [],
+    search: "",
   });
 
-  const handleSearch = event => {
-    const filter = event.target.value;
-    const results = state.users.filter(result => {
-      let entry = result.name.first.toLowerCase() + " " + result.name.last.toLowerCase();
-      console.log(filter, entry)
-    if(entry.indexOf(filter.toLowerCase()) !== -1){
-      return result
-    };
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setState({ ...state, [name]: value });
+    console.log(state);
+
+    const newResults = state.originalArray.filter((employee) => {
+      return (
+        employee.name.first.toLowerCase().includes(value.toLowerCase()) ||
+        employee.name.last.toLowerCase().includes(value.toLowerCase()) ||
+        employee.phone.includes(value)
+      );
     });
-    setState({...state, results: results});
-  }
+
+    setState({
+      ...state,
+      results: newResults,
+    });
+  };
   
-  useEffect(()=>{
-    API.getEmployee().then(employees => {
-      console.log(employees)
 
+  useEffect(() => {
+    API.getEmployee().then((employees) => {
       setState({
-        ...state, 
+        ...state,
         results: employees.data.results,
-        originalArray: employees.data.results
-      })
-    })
+        originalArray: employees.data.results,
+      });
+    });
+  }, []);
 
-  },[])
-
-
-  const [search, setSearch] = useState("");
   return (
     <>
-    {console.log(state.results)}
-      <SearchForm />
-      <Table results = {state.results}/>
+      <SearchForm handleInputChange={handleInputChange} search={state.search} />
+      <Table results={state.results} handleSubmit={handleSubmit} />
     </>
   );
 }
