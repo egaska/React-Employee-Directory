@@ -4,7 +4,7 @@ import SearchForm from "./searchForm";
 import Table from "./table";
 
 let sortToggle = true;
-const newResults = "";
+let newResults = "";
 
 export function Search() {
   const [state, setState] = useState({
@@ -45,6 +45,7 @@ export function Search() {
         newResults = state.results.sort((a, b) =>
         b.name.first.localeCompare(a.name.first)
       );
+      sortToggle = true;
       }
         setState({
           ...state,
