@@ -28,7 +28,19 @@ export function Search() {
       results: newResults,
     });
   };
-  
+  const handleSubmit = (columnName) => {
+    switch (columnName) {
+      case "Name":
+        const newResults = state.results.sort((a, b) =>
+          b.name.first.localeCompare(a.name.first)
+        );
+        setState({
+          ...state,
+          results: newResults,
+        });
+        break;
+    }
+  };
 
   useEffect(() => {
     API.getEmployee().then((employees) => {
