@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import API from "../utils/api";
 import SearchForm from "./searchForm";
 import Table from "./table";
-import moment from "moment";
 
 let sortToggle = true;
+const newResults = "";
 
 export function Search() {
   const [state, setState] = useState({
@@ -35,9 +35,17 @@ export function Search() {
   const handleSort = (columnName) => {
     switch (columnName) {
       case "Name":
-        const newResults = state.results.sort((a, b) =>
-          b.name.first.localeCompare(a.name.first)
+        if (sortToggle === true){
+        newResults = state.results.sort((a, b) =>
+          a.name.first.localeCompare(b.name.first)
         );
+      sortToggle = false;
+      }
+      else{
+        newResults = state.results.sort((a, b) =>
+        b.name.first.localeCompare(a.name.first)
+      );
+      }
         setState({
           ...state,
           results: newResults,
@@ -59,7 +67,7 @@ export function Search() {
   return (
     <>
       <SearchForm handleInputChange={handleInputChange} search={state.search} />
-      <Table results={state.results} handleSort={handleSort} />
+      <Table results={state.results} handleSort={handleSort} sortToggle = {sortToggle}/>
     </>
   );
 }
