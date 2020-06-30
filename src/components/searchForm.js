@@ -7,7 +7,7 @@ export default function SearchForm(props) {
         <div className="input-group"></div>
         <input
           name="search"
-          type="text"
+          type="search"
           className="form-control"
           id="searchInput"
           placeholder="Search"
