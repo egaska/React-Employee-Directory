@@ -7,7 +7,18 @@ export default function Table(props) {
       <thead>
         <tr>
           <th scope="col">Image</th>
-  <th scope="col" onClick = {()=>{  props.handleSort("Name")  }}>Name <img src="https://img.icons8.com/material-outlined/24/000000/filter-and-sort.png" alt="Sort"/></th>
+          <th
+            scope="col"
+            onClick={() => {
+              props.handleSort("Name");
+            }}
+          >
+            Name{" "}
+            <img
+              src="https://img.icons8.com/material-outlined/24/000000/filter-and-sort.png"
+              alt="Sort"
+            />
+          </th>
           <th scope="col">Phone</th>
           <th scope="col">Email</th>
           <th scope="col">DOB</th>
@@ -19,7 +30,7 @@ export default function Table(props) {
             return (
               <tr key={index}>
                 <th scope="row">
-                  <img src={employee.picture.thumbnail} alt = "Employee" />
+                  <img src={employee.picture.thumbnail} alt="Employee" />
                 </th>
                 <td>{employee.name.first + " " + employee.name.last}</td>
                 <td>{employee.phone}</td>
